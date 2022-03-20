@@ -9,24 +9,19 @@
 * You shall not disclose or use Confidential information without the express
 * written agreement of Walmart
 *********************************************************************************/
-package com.training.creditcard;
+package com.training.creditcard.repository;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.training.creditcard.model.CreditCardHistory;
 
 /**
- * Main class for CreditCardApplication
+ * Repository class for CreditCardHistory
  * 
  * @author vn51ore
- *
  */
+@Repository
+public interface CreditCardHistoryRepository extends CrudRepository<CreditCardHistory, Integer> {
 
-@SpringBootApplication(exclude=SecurityAutoConfiguration.class)
-public class CreditCardApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(CreditCardApplication.class, args);
-	}
-	
 }

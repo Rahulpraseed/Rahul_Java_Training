@@ -9,24 +9,30 @@
 * You shall not disclose or use Confidential information without the express
 * written agreement of Walmart
 *********************************************************************************/
-package com.training.creditcard;
+package com.training.creditcard.model;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import lombok.Data;
 
 /**
- * Main class for CreditCardApplication
+ * Model class for Customer
  * 
  * @author vn51ore
  *
  */
+@Data
+@Table(name = "customer")
+@Entity
+public class Customer {
 
-@SpringBootApplication(exclude=SecurityAutoConfiguration.class)
-public class CreditCardApplication {
+	@Id
+	private int accountNumber;
+	private int panNumber;
+	private String customerName;
+	private int age;
+	private int salary;
 
-	public static void main(String[] args) {
-		SpringApplication.run(CreditCardApplication.class, args);
-	}
-	
 }
