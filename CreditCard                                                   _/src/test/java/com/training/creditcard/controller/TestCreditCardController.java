@@ -1,3 +1,14 @@
+/* ********************************************************************************
+* Project Name : CreditCardApplication
+* Author : vn51ore
+*
+* Copyright Notice
+*
+* Copyright (c) 2021 Walmart. All Right Reserved.
+* This software is the confidential and proprietary information of WalMart
+* You shall not disclose or use Confidential information without the express
+* written agreement of Walmart
+*********************************************************************************/
 package com.training.creditcard.controller;
 
 import java.util.Optional;
@@ -16,7 +27,11 @@ import com.training.creditcard.repository.CreditCardRepository;
 import com.training.creditcard.service.CreditCardService;
 
 import junit.framework.Assert;
-
+/**
+ * Test class for CreditCardController
+ * 
+ * 
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class TestCreditCardController {
 
@@ -28,6 +43,12 @@ public class TestCreditCardController {
 
 	@Mock
 	private CreditCardRepository creditCardRepository;
+	
+	/**
+	 * Method to TestCreateCreditCard
+	 * 
+	 * 
+	 */
 
 	@Test
 	public void TestCreateCreditCard() {
@@ -43,6 +64,11 @@ public class TestCreditCardController {
 		Assert.assertEquals(creditCard.getCardHolderName(), customer.getCustomerName());
 	}
 
+	/**
+	 * Method to TestUpdateCardLimit
+	 * 
+	 * 
+	 */
 	@Test
 	public void TestUpdateCardLimit() {
 
@@ -56,7 +82,11 @@ public class TestCreditCardController {
 		CreditCard creditCard = creditCardController.updateCardLimit(credit.getCardNumber());
 		Assert.assertEquals(creditCard.getCardLimit(), 25000);
 	}
-
+	/**
+	 * Method to testCreditCardDuesAccept
+	 * 
+	 * 
+	 */
 	@Test
 	public void testCreditCardDuesAccept() {
 
@@ -71,7 +101,11 @@ public class TestCreditCardController {
 		CreditCard creditCard = creditCardController.creditCardDuesAccept(credit.getCardNumber(), dueAmount);
 		Assert.assertEquals(creditCard.getCardLimit(), 25000);
 	}
-
+	/**
+	 * Method to testCancelCreditCard
+	 * 
+	 * 
+	 */
 	@Test
 	public void testCancelCreditCard() {
 
@@ -86,7 +120,11 @@ public class TestCreditCardController {
 		String creditCard = creditCardController.cancelCreditCard(credit.getCardNumber());
 		Assert.assertEquals(creditCard, "Cancel");
 	}
-
+	/**
+	 * Method to testBlockCreditCard
+	 * 
+	 * 
+	 */
 	@Test
 	public void testBlockCreditCard() {
 
@@ -101,7 +139,11 @@ public class TestCreditCardController {
 		String creditCard = creditCardController.blockCreditCard(credit.getCardNumber());
 		Assert.assertEquals(creditCard, "Block");
 	}
-
+	/**
+	 * Method to testUnBlockCreditCard
+	 * 
+	 * 
+	 */
 	@Test
 	public void testUnBlockCreditCard() {
 

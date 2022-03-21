@@ -1,3 +1,14 @@
+/* ********************************************************************************
+* Project Name : CreditCardApplication
+* Author : vn51ore
+*
+* Copyright Notice
+*
+* Copyright (c) 2021 Walmart. All Right Reserved.
+* This software is the confidential and proprietary information of WalMart
+* You shall not disclose or use Confidential information without the express
+* written agreement of Walmart
+*********************************************************************************/
 package com.training.creditcard.service;
 
 import java.time.LocalDate;
@@ -17,7 +28,11 @@ import com.training.creditcard.repository.CreditCardRepository;
 import com.training.creditcard.repository.CustomerRepository;
 
 import junit.framework.Assert;
-
+/**
+ * Test class for CreditCardService
+ * 
+ * 
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class TestCreditCardService {
 
@@ -32,9 +47,13 @@ public class TestCreditCardService {
 
 	@Mock
 	private CreditCardHistoryRepository creditCardHistoryRepository;
-
+	/**
+	 * Method to testCreateCreditCard
+	 * 
+	 * 
+	 */
 	@Test
-	public void TestCreateCreditCard() {
+	public void testCreateCreditCard() {
 
 		Customer customer = new Customer();
 		customer.setAge(20);
@@ -44,7 +63,11 @@ public class TestCreditCardService {
 		Assert.assertEquals(creditCard.getCardHolderName(), customer.getCustomerName());
 
 	}
-
+	/**
+	 * Method to testUpdateCreditCardLimit
+	 * 
+	 * 
+	 */
 	@Test
 	public void testUpdateCreditCardLimit() {
 
@@ -55,12 +78,15 @@ public class TestCreditCardService {
 		credit.setCardNumber(200);
 		Optional<CreditCard> optionCard = Optional.of(credit);
 		Mockito.when(creditCardRepository.findById(Mockito.any())).thenReturn(optionCard);
-
 		CreditCard creditCard = creditCardService.updateCreditCardLimit(credit.getCardNumber());
 		Assert.assertEquals(creditCard.getCardLimit(), 25000);
 
 	}
-
+	/**
+	 * Method to testCreditCardDuesAccept
+	 * 
+	 * 
+	 */
 	@Test
 	public void testCreditCardDuesAccept() {
 
@@ -76,7 +102,11 @@ public class TestCreditCardService {
 		Assert.assertEquals(creditCard.getCardLimit(), 2000);
 
 	}
-
+	/**
+	 * Method to testcancelCreditCard
+	 * 
+	 * 
+	 */
 	@Test
 	public void testcancelCreditCard() {
 
@@ -95,7 +125,11 @@ public class TestCreditCardService {
 		Assert.assertEquals(creditCard, "Cancel");
 
 	}
-
+	/**
+	 * Method to testBlockCreditCard
+	 * 
+	 * 
+	 */
 	@Test
 	public void testBlockCreditCard() {
 
@@ -111,7 +145,11 @@ public class TestCreditCardService {
 		Assert.assertEquals(creditCard, "block");
 
 	}
-
+	/**
+	 * Method to testUnblockCreditCard
+	 * 
+	 * 
+	 */
 	@Test
 	public void testUnblockCreditCard() {
 
