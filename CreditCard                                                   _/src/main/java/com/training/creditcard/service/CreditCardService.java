@@ -12,11 +12,10 @@
 package com.training.creditcard.service;
 
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -57,13 +56,13 @@ public class CreditCardService {
 	public CreditCard createCreditCard(Customer customer) {
 		log.info("createCreditCard methods start with argument customer{}", customer);
 		CreditCard creditCard = new CreditCard();
+		 Base64.Encoder encoder = Base64.getEncoder();  
 		if (customer.getSalary() > 50000 && customer.getAge() > 18) {
-			PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			customerRepository.save(customer);
 			creditCard.setCardHolderName(customer.getCustomerName());
 			creditCard.setCardNumber(customer.getAccountNumber() + 1000);
 			creditCard.setCardLimit(5000);
-			creditCard.setPassword(passwordEncoder.encode(customer.getCustomerName().substring(0, 3).concat("123")));
+			creditCard.setPassword(encoder.encodeToString((customer.getCustomerName().substring(0, 3).concat("123")).getBytes()));
 			creditCard.setCardStatus("UnBlock");
 			creditCardRepository.save(creditCard);
 			log.debug("createCreditCard methods end");

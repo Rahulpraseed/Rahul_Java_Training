@@ -24,7 +24,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  *
  */
 @EnableSwagger2
-@SpringBootApplication(exclude=SecurityAutoConfiguration.class)
+@SpringBootApplication
 public class CreditCardApplication {
 
 	public static void main(String[] args) {

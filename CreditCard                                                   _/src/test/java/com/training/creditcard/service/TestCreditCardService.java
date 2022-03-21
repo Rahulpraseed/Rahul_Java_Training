@@ -142,7 +142,7 @@ public class TestCreditCardService {
 		Optional<CreditCard> optionCard = Optional.of(credit);
 		Mockito.when(creditCardRepository.findById(Mockito.any())).thenReturn(optionCard);
 		String creditCard = creditCardService.blockCreditCard(credit.getCardNumber());
-		Assert.assertEquals(creditCard, "block");
+		Assert.assertEquals(creditCard, "Block");
 
 	}
 	/**
