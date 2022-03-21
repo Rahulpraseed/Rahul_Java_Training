@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import com.training.creditcard.constants.AppConstants;
 import com.training.creditcard.model.CreditCard;
 import com.training.creditcard.model.CreditCardHistory;
 import com.training.creditcard.model.Customer;
@@ -62,8 +63,8 @@ public class CreditCardService {
 			creditCard.setCardHolderName(customer.getCustomerName());
 			creditCard.setCardNumber(customer.getAccountNumber() + 1000);
 			creditCard.setCardLimit(5000);
-			creditCard.setPassword(encoder.encodeToString((customer.getCustomerName().substring(0, 3).concat("123")).getBytes()));
-			creditCard.setCardStatus("UnBlock");
+			creditCard.setPassword(encoder.encodeToString((customer.getCustomerName().substring(0, 3).concat(AppConstants.PASSWORD)).getBytes()));
+			creditCard.setCardStatus(AppConstants.CREDITCARD_UNBLOCK);
 			creditCardRepository.save(creditCard);
 			log.debug("createCreditCard methods end");
 
@@ -123,12 +124,12 @@ public class CreditCardService {
 			creditCardHistory.setCardHolderName(customer.get().getCardHolderName());
 			creditCardHistory.setCardNumber(cardNumber);
 			creditCardHistory.setCancelDate(date);
-			creditCardHistory.setCardStatus("Cancel");
+			creditCardHistory.setCardStatus(AppConstants.CREDITCARD_CANCEL);
 			creditCardHistoryRepository.save(creditCardHistory);
 			creditCardRepository.deleteById(cardNumber);
-			status = "Cancel";
+			status = AppConstants.CREDITCARD_CANCEL;
 		} else {
-			status = "Fraud detection";
+			status = AppConstants.CREDITCARD_FRAUD_DETECTION;
 		}
 		log.debug("cancelCreditCard methods end");
 		return status;
@@ -147,12 +148,12 @@ public class CreditCardService {
 		if (!ObjectUtils.isEmpty(creditCardRepository.findById(cardNumber))) {
 			Optional<CreditCard> credit = creditCardRepository.findById(cardNumber);
 			CreditCard cardDetails = credit.get();
-			cardDetails.setCardStatus("Block");
+			cardDetails.setCardStatus(AppConstants.CREDITCARD_BLOCK);
 			creditCardRepository.save(cardDetails);
 
-			status = "Block";
+			status = AppConstants.CREDITCARD_BLOCK;
 		} else {
-			status = "Fraud detected";
+			status = AppConstants.CREDITCARD_FRAUD_DETECTION;
 		}
 		log.debug("blockCreditCard methods end");
 		return status;
@@ -170,11 +171,11 @@ public class CreditCardService {
 		if (!ObjectUtils.isEmpty(creditCardRepository.findById(cardNumber))) {
 			Optional<CreditCard> credit = creditCardRepository.findById(cardNumber);
 			CreditCard cardDetails = credit.get();
-			cardDetails.setCardStatus("Unblock");
+			cardDetails.setCardStatus(AppConstants.CREDITCARD_UNBLOCK);
 			creditCardRepository.save(cardDetails);
-			status = "unblock";
+			status = AppConstants.CREDITCARD_UNBLOCK;
 		} else {
-			status = "Fraud detected";
+			status = AppConstants.CREDITCARD_FRAUD_DETECTION;
 		}
 		log.debug("unBlockCreditCard methods end");
 		return status;

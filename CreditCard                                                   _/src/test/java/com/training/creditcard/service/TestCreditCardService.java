@@ -162,7 +162,7 @@ public class TestCreditCardService {
 		Optional<CreditCard> optionCard = Optional.of(credit);
 		Mockito.when(creditCardRepository.findById(Mockito.any())).thenReturn(optionCard);
 		String creditCard = creditCardService.unBlockCreditCard(credit.getCardNumber());
-		Assert.assertEquals(creditCard, "unblock");
+		Assert.assertEquals(creditCard, "Unblock");
 
 	}
 }
