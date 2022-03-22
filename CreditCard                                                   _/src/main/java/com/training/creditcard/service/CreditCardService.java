@@ -57,13 +57,14 @@ public class CreditCardService {
 	public CreditCard createCreditCard(Customer customer) {
 		log.info("createCreditCard methods start with argument customer{}", customer);
 		CreditCard creditCard = new CreditCard();
-		 Base64.Encoder encoder = Base64.getEncoder();  
+		Base64.Encoder encoder = Base64.getEncoder();
 		if (customer.getSalary() > 50000 && customer.getAge() > 18) {
 			customerRepository.save(customer);
 			creditCard.setCardHolderName(customer.getCustomerName());
 			creditCard.setCardNumber(customer.getAccountNumber() + 1000);
 			creditCard.setCardLimit(5000);
-			creditCard.setPassword(encoder.encodeToString((customer.getCustomerName().substring(0, 3).concat(AppConstants.PASSWORD)).getBytes()));
+			creditCard.setPassword(encoder.encodeToString(
+					(customer.getCustomerName().substring(0, 3).concat(AppConstants.PASSWORD)).getBytes()));
 			creditCard.setCardStatus(AppConstants.CREDITCARD_UNBLOCK);
 			creditCardRepository.save(creditCard);
 			log.debug("createCreditCard methods end");
@@ -179,5 +180,20 @@ public class CreditCardService {
 		}
 		log.debug("unBlockCreditCard methods end");
 		return status;
+	}
+
+	/**
+	 * Method to getCreditCardById
+	 * 
+	 * @param cardNumber
+	 * @return status
+	 */
+	public CreditCard getCreditCardById(int cardNumber) {
+		log.info("getCreditCardById methods start with argument cardNumber{}", cardNumber);
+		Optional<CreditCard> credit = creditCardRepository.findById(cardNumber);
+		CreditCard cardDetails = credit.get();
+		log.debug("getCreditCardById methods end");
+		return cardDetails;
+
 	}
 }

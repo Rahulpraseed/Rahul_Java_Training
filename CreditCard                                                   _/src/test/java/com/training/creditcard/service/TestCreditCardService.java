@@ -60,7 +60,7 @@ public class TestCreditCardService {
 		customer.setCustomerName("rahul");
 		customer.setSalary(60000);
 		CreditCard creditCard = creditCardService.createCreditCard(customer);
-		Assert.assertEquals(creditCard.getCardHolderName(), customer.getCustomerName());
+		Assert.assertEquals(customer.getCustomerName(),creditCard.getCardHolderName());
 
 	}
 	/**
@@ -79,7 +79,7 @@ public class TestCreditCardService {
 		Optional<CreditCard> optionCard = Optional.of(credit);
 		Mockito.when(creditCardRepository.findById(Mockito.any())).thenReturn(optionCard);
 		CreditCard creditCard = creditCardService.updateCreditCardLimit(credit.getCardNumber());
-		Assert.assertEquals(creditCard.getCardLimit(), 25000);
+		Assert.assertEquals(25000,creditCard.getCardLimit());
 
 	}
 	/**
@@ -99,7 +99,7 @@ public class TestCreditCardService {
 		Optional<CreditCard> optionCard = Optional.of(credit);
 		Mockito.when(creditCardRepository.findById(Mockito.any())).thenReturn(optionCard);
 		CreditCard creditCard = creditCardService.creditCardDuesAccept(credit.getCardNumber(), dueAmount);
-		Assert.assertEquals(creditCard.getCardLimit(), 2000);
+		Assert.assertEquals(2000,creditCard.getCardLimit());
 
 	}
 	/**
@@ -122,7 +122,7 @@ public class TestCreditCardService {
 		Mockito.when(creditCardRepository.findById(Mockito.any())).thenReturn(option);
 
 		String creditCard = creditCardService.cancelCreditCard(credit.getCardNumber());
-		Assert.assertEquals(creditCard, "Cancel");
+		Assert.assertEquals("Cancel",creditCard);
 
 	}
 	/**
@@ -142,7 +142,7 @@ public class TestCreditCardService {
 		Optional<CreditCard> optionCard = Optional.of(credit);
 		Mockito.when(creditCardRepository.findById(Mockito.any())).thenReturn(optionCard);
 		String creditCard = creditCardService.blockCreditCard(credit.getCardNumber());
-		Assert.assertEquals(creditCard, "Block");
+		Assert.assertEquals("Block",creditCard);
 
 	}
 	/**
@@ -162,7 +162,27 @@ public class TestCreditCardService {
 		Optional<CreditCard> optionCard = Optional.of(credit);
 		Mockito.when(creditCardRepository.findById(Mockito.any())).thenReturn(optionCard);
 		String creditCard = creditCardService.unBlockCreditCard(credit.getCardNumber());
-		Assert.assertEquals(creditCard, "Unblock");
+		Assert.assertEquals( "Unblock",creditCard);
+
+	}
+	/**
+	 * Method to testBlockCreditCard
+	 * 
+	 * 
+	 */
+	@Test
+	public void testGetCreditCardById() {
+
+		CreditCard credit = new CreditCard();
+		credit.setCardHolderName("rahul");
+		credit.setCardNumber(123);
+		credit.setCardLimit(1000);
+		credit.setCardNumber(200);
+		credit.setCardStatus("unblock");
+		Optional<CreditCard> optionCard = Optional.of(credit);
+		Mockito.when(creditCardRepository.findById(Mockito.any())).thenReturn(optionCard);
+		CreditCard creditCard = creditCardService.getCreditCardById(credit.getCardNumber());
+		Assert.assertEquals(credit, creditCard);
 
 	}
 }

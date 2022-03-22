@@ -61,7 +61,7 @@ public class TestCreditCardController {
 		credit.setCardHolderName("rahul");
 		Mockito.when(creditCardService.createCreditCard(Mockito.any())).thenReturn(credit);
 		CreditCard creditCard = creditCardController.createCreditCard(customer);
-		Assert.assertEquals(creditCard.getCardHolderName(), customer.getCustomerName());
+		Assert.assertEquals( customer.getCustomerName(),creditCard.getCardHolderName());
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class TestCreditCardController {
 		Optional<CreditCard> optionCard = Optional.of(credit);
 		Mockito.when(creditCardService.updateCreditCardLimit(Mockito.anyInt())).thenReturn(credit);
 		CreditCard creditCard = creditCardController.updateCardLimit(credit.getCardNumber());
-		Assert.assertEquals(creditCard.getCardLimit(), 25000);
+		Assert.assertEquals(25000,creditCard.getCardLimit());
 	}
 	/**
 	 * Method to testCreditCardDuesAccept
@@ -99,7 +99,7 @@ public class TestCreditCardController {
 		Optional<CreditCard> optionCard = Optional.of(credit);
 		Mockito.when(creditCardService.creditCardDuesAccept(Mockito.anyInt(), Mockito.anyInt())).thenReturn(credit);
 		CreditCard creditCard = creditCardController.creditCardDuesAccept(credit.getCardNumber(), dueAmount);
-		Assert.assertEquals(creditCard.getCardLimit(), 25000);
+		Assert.assertEquals(25000,creditCard.getCardLimit());
 	}
 	/**
 	 * Method to testCancelCreditCard
@@ -118,7 +118,7 @@ public class TestCreditCardController {
 		Optional<CreditCard> optionCard = Optional.of(credit);
 		Mockito.when(creditCardService.cancelCreditCard(Mockito.anyInt())).thenReturn(credit.getCardStatus());
 		String creditCard = creditCardController.cancelCreditCard(credit.getCardNumber());
-		Assert.assertEquals(creditCard, "Cancel");
+		Assert.assertEquals( "Cancel",creditCard);
 	}
 	/**
 	 * Method to testBlockCreditCard
@@ -137,7 +137,7 @@ public class TestCreditCardController {
 		Optional<CreditCard> optionCard = Optional.of(credit);
 		Mockito.when(creditCardService.blockCreditCard(Mockito.anyInt())).thenReturn(credit.getCardStatus());
 		String creditCard = creditCardController.blockCreditCard(credit.getCardNumber());
-		Assert.assertEquals(creditCard, "Block");
+		Assert.assertEquals("Block",creditCard);
 	}
 	/**
 	 * Method to testUnBlockCreditCard
@@ -156,6 +156,26 @@ public class TestCreditCardController {
 		Optional<CreditCard> optionCard = Optional.of(credit);
 		Mockito.when(creditCardService.unBlockCreditCard(Mockito.anyInt())).thenReturn(credit.getCardStatus());
 		String creditCard = creditCardController.unBlockCreditCard(credit.getCardNumber());
-		Assert.assertEquals(creditCard, "unBlock");
+		Assert.assertEquals("unBlock",creditCard);
+	}
+	
+	/**
+	 * Method to testGetCreditCardById
+	 * 
+	 * 
+	 */
+	@Test
+	public void testGetCreditCardById() {
+
+		CreditCard credit = new CreditCard();
+		credit.setCardHolderName("rahul");
+		credit.setCardNumber(123);
+		credit.setCardLimit(25000);
+		credit.setCardNumber(200);
+		credit.setCardStatus("unBlock");
+		
+		Mockito.when(creditCardService.getCreditCardById(Mockito.anyInt())).thenReturn(credit);
+		CreditCard creditCard = creditCardController.getCreditCardById(credit.getCardNumber());
+		Assert.assertEquals(credit, creditCard);
 	}
 }

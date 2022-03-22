@@ -13,6 +13,7 @@ package com.training.creditcard.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -128,4 +129,19 @@ public class CreditCardController {
 		return response;
 
 	}
+	/**
+	 * Method to getCreditCardById
+	 * 
+	 * @param cardNumber
+	 * @return response
+	 */
+	@GetMapping("/getCreditCardById/{cardNumber}")
+	public CreditCard getCreditCardById(@PathVariable int cardNumber) {
+		log.info("getCreditCardById methods start with argument cardNumber{}", cardNumber);
+		CreditCard response = creditCardService.getCreditCardById(cardNumber);
+		log.debug("getCreditCardById methods end");
+		return response;
+
+	}
+
 }
